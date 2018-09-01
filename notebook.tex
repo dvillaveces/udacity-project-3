@@ -1,0 +1,1561 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{investigate-a-dataset-project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{project-co2-emissions-gdp-and-population-growth-in-the-last-century}{%
+\section{Project: CO2 emissions, GDP and population growth in the last
+century}\label{project-co2-emissions-gdp-and-population-growth-in-the-last-century}}
+
+    \hypertarget{table-of-contents}{%
+\subsection{Table of Contents}\label{table-of-contents}}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+    \hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+For this project I will analyze data from
+\href{https://www.gapminder.org/data/}{gapminder.org} to explore
+worldwide CO2 emissions and their relationship to other variables. To
+start, I will explore CO2 emissions per country to discover trends. I
+will use per capita CO2 emissions as the dependent variable and time,
+GDP per capita and population growth as independent variables for my
+anaylsis.
+
+The goals of this project (aside from learning and practicing data
+analytics) are to answer the following questions: 1. What trends can we
+see in CO2 emissions over the past century? 2. What is the relationship
+between CO2 emissions and GDP? 3. What is the relationship between CO2
+emissions and population growth?
+
+The world is dealing with unprecedented climate change. A major cause of
+this change is the rise in greenhouse gas emissions (of which CO2 is
+one). Understanding recent trends in CO2 emissions and their
+relationship with other variables is important if we want evidence-based
+measures to address climate change. My analysis will be limited in that
+it only looks at correlation, but it cannot determine causation. Also,
+the variables I will be analyzing are probably correlated, and my
+analysis will not try to disentangle them to determine their isolated
+effects on CO2 emissions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import packages}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+\end{Verbatim}
+
+
+    \hypertarget{data-wrangling}{%
+\subsection{Data Wrangling}\label{data-wrangling}}
+
+    \hypertarget{general-properties}{%
+\subsubsection{General Properties}\label{general-properties}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load data}
+        \PY{n}{df\PYZus{}co2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co2\PYZus{}emissions\PYZus{}tonnes\PYZus{}per\PYZus{}person.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}regions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{regions.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}gdp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{income\PYZus{}per\PYZus{}person\PYZus{}gdppercapita\PYZus{}ppp\PYZus{}inflation\PYZus{}adjusted.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}pop\PYZus{}growth} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population\PYZus{}growth\PYZus{}annual\PYZus{}percent.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Rename first column to more descriptive \PYZsq{}country\PYZsq{}}
+        \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{geo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{geo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{geo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Print head of CO2 df}
+        \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}        country  1800  1801  1802  1803  1804  1805  1806  1807  1808  {\ldots}    \textbackslash{}
+        0  Afghanistan   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+        1      Albania   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+        2      Algeria   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+        3      Andorra   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+        4       Angola   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+        
+             2005    2006    2007   2008   2009   2010   2011  2012   2013   2014  
+        0  0.0529  0.0637  0.0854  0.154  0.242  0.294  0.412  0.35  0.316  0.299  
+        1  1.3800  1.2800  1.3000  1.460  1.480  1.560  1.790  1.68  1.730  1.960  
+        2  3.2200  2.9900  3.1900  3.160  3.420  3.300  3.290  3.46  3.510  3.720  
+        3  7.3000  6.7500  6.5200  6.430  6.120  6.120  5.870  5.92  5.900  5.830  
+        4  0.9800  1.1000  1.2000  1.180  1.230  1.240  1.250  1.33  1.250  1.290  
+        
+        [5 rows x 216 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Print head of df\PYZus{}regions}
+        \PY{n}{df\PYZus{}regions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    geo         name four\_regions       eight\_regions  \textbackslash{}
+        0  afg  Afghanistan         asia           asia\_west   
+        1  alb      Albania       europe         europe\_east   
+        2  dza      Algeria       africa        africa\_north   
+        3  and      Andorra       europe         europe\_west   
+        4  ago       Angola       africa  africa\_sub\_saharan   
+        
+                        six\_regions members\_oecd\_g77  Latitude  Longitude  \textbackslash{}
+        0                south\_asia              g77  33.00000   66.00000   
+        1       europe\_central\_asia           others  41.00000   20.00000   
+        2  middle\_east\_north\_africa              g77  28.00000    3.00000   
+        3       europe\_central\_asia           others  42.50779    1.52109   
+        4        sub\_saharan\_africa              g77 -12.50000   18.50000   
+        
+          UN member since           World bank region World bank income group 2017  
+        0      19/11/1946                  South Asia                   Low income  
+        1      14/12/1955       Europe \& Central Asia          Upper middle income  
+        2       8/10/1962  Middle East \& North Africa          Upper middle income  
+        3       28/7/1993       Europe \& Central Asia                  High income  
+        4       1/12/1976          Sub-Saharan Africa          Lower middle income  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Print head of GDP df}
+        \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}        country  1800  1801  1802  1803  1804  1805  1806  1807  1808  {\ldots}    \textbackslash{}
+        0  Afghanistan   603   603   603   603   603   603   603   603   603  {\ldots}     
+        1      Albania   667   667   667   667   667   668   668   668   668  {\ldots}     
+        2      Algeria   715   716   717   718   719   720   721   722   723  {\ldots}     
+        3      Andorra  1200  1200  1200  1200  1210  1210  1210  1210  1220  {\ldots}     
+        4       Angola   618   620   623   626   628   631   634   637   640  {\ldots}     
+        
+            2009   2010   2011   2012   2013   2014   2015   2016   2017   2018  
+        0   1530   1610   1660   1840   1810   1780   1750   1740   1800   1870  
+        1   9530   9930  10200  10400  10500  10700  11000  11400  11900  12400  
+        2  12600  12900  13000  13200  13300  13500  13700  14000  13800  13700  
+        3  41700  39000  42000  41900  43700  44900  46600  48200  49800  51500  
+        4   5910   5900   5910   6000   6190   6260   6230   6030   5940   5850  
+        
+        [5 rows x 220 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Print head of pop growth df}
+        \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}        country  1960  1961  1962  1963  1964  1965  1966  1967  1968  {\ldots}    \textbackslash{}
+        0  Afghanistan  1.82  1.88  1.94  1.99  2.05  2.11  2.13  2.15  2.21  {\ldots}     
+        1      Albania  3.02  3.12  3.06  2.95  2.88  2.75  2.63  2.63  2.84  {\ldots}     
+        2      Algeria  2.51  2.49  2.47  2.49  2.56  2.66  2.76  2.84  2.88  {\ldots}     
+        3      Andorra  7.05  6.94  6.69  6.56  6.24  6.00  5.75  5.50  5.31  {\ldots}     
+        4       Angola  1.90  1.93  1.95  1.93  1.87  1.79  1.70  1.65  1.68  {\ldots}     
+        
+            2007   2008   2009    2010   2011   2012   2013   2014   2015   2016  
+        0  2.760  2.510  2.570  2.8100  3.100  3.270  3.320  3.180  2.940  2.690  
+        1 -0.756 -0.767 -0.674 -0.4960 -0.269 -0.165 -0.183 -0.207 -0.291 -0.160  
+        2  1.530  1.620  1.720  1.8200  1.920  2.010  2.040  2.000  1.920  1.830  
+        3  2.070  1.410  0.714 -0.0154 -0.830 -1.590 -2.010 -1.960 -1.540 -0.944  
+        4  3.560  3.560  3.570  3.5700  3.570  3.560  3.530  3.490  3.430  3.370  
+        
+        [5 rows x 58 columns]
+\end{Verbatim}
+            
+    \hypertarget{co2-dataframe}{%
+\paragraph{CO2 DataFrame}\label{co2-dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Check for missing data}
+        \PY{n}{missing} \PY{o}{=} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+        \PY{n}{total} \PY{o}{=} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Missing }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ out of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ data points (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{missing}\PY{p}{,} \PY{n}{total}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{missing}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{total}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Missing 24375 out of 41472 data points (59.0\%)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Get an idea for where missing data are located}
+        \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} country      0
+        1800       187
+        1801       187
+        1802       185
+        1803       187
+        1804       186
+        1805       187
+        1806       187
+        1807       186
+        1808       187
+        1809       187
+        1810       186
+        1811       186
+        1812       186
+        1813       186
+        1814       186
+        1815       186
+        1816       186
+        1817       186
+        1818       186
+        1819       185
+        1820       185
+        1821       185
+        1822       185
+        1823       185
+        1824       185
+        1825       185
+        1826       185
+        1827       185
+        1828       185
+                  {\ldots} 
+        1985        20
+        1986        20
+        1987        20
+        1988        20
+        1989        20
+        1990        16
+        1991        15
+        1992         4
+        1993         4
+        1994         3
+        1995         3
+        1996         3
+        1997         3
+        1998         3
+        1999         3
+        2000         3
+        2001         3
+        2002         2
+        2003         2
+        2004         2
+        2005         2
+        2006         2
+        2007         1
+        2008         1
+        2009         1
+        2010         1
+        2011         1
+        2012         0
+        2013         0
+        2014         0
+        Length: 216, dtype: int64
+\end{Verbatim}
+            
+    As we can see above, this database has a lot of missing data
+(\textgreater{}50\% of data points are missing). More data are available
+for that past 30 years or so than the first 30 years, for which only a
+few countries have data. This is to be expected since data collection
+has become easier and more widespread only in the last few decades. I
+suspect that this problem is worse for developing countries, which have
+fewer resources to focus on data collection, and could mean that my
+analysis could be biased if developed nations end up being
+over-represented in the data. For this reason, I will use several
+methods to fill in missing values as opposed to discarding countries.
+
+    \hypertarget{gdp-dataframe}{%
+\paragraph{GDP DataFrame}\label{gdp-dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Check for missing data}
+        \PY{n}{missing} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+        \PY{n}{total} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Missing }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ out of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ data points (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{missing}\PY{p}{,} \PY{n}{total}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{missing}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{total}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Missing 0 out of 42460 data points (0.0\%)
+
+    \end{Verbatim}
+
+    \hypertarget{population-growth-dataframe}{%
+\paragraph{Population Growth
+DataFrame}\label{population-growth-dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Check for missing data}
+         \PY{n}{missing} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{total} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Missing }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ out of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ data points (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{missing}\PY{p}{,} \PY{n}{total}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{missing}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{total}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Missing 73 out of 11252 data points (1.0\%)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Get an idea for where missing data are located}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 194 entries, 0 to 193
+Data columns (total 58 columns):
+country    194 non-null object
+1960       191 non-null float64
+1961       192 non-null float64
+1962       192 non-null float64
+1963       192 non-null float64
+1964       192 non-null float64
+1965       192 non-null float64
+1966       192 non-null float64
+1967       192 non-null float64
+1968       192 non-null float64
+1969       192 non-null float64
+1970       192 non-null float64
+1971       192 non-null float64
+1972       192 non-null float64
+1973       192 non-null float64
+1974       192 non-null float64
+1975       192 non-null float64
+1976       192 non-null float64
+1977       192 non-null float64
+1978       192 non-null float64
+1979       192 non-null float64
+1980       192 non-null float64
+1981       192 non-null float64
+1982       192 non-null float64
+1983       192 non-null float64
+1984       192 non-null float64
+1985       192 non-null float64
+1986       192 non-null float64
+1987       192 non-null float64
+1988       192 non-null float64
+1989       192 non-null float64
+1990       193 non-null float64
+1991       193 non-null float64
+1992       193 non-null float64
+1993       193 non-null float64
+1994       193 non-null float64
+1995       193 non-null float64
+1996       194 non-null float64
+1997       194 non-null float64
+1998       194 non-null float64
+1999       194 non-null float64
+2000       194 non-null float64
+2001       194 non-null float64
+2002       194 non-null float64
+2003       194 non-null float64
+2004       194 non-null float64
+2005       194 non-null float64
+2006       194 non-null float64
+2007       194 non-null float64
+2008       194 non-null float64
+2009       194 non-null float64
+2010       194 non-null float64
+2011       193 non-null float64
+2012       193 non-null float64
+2013       193 non-null float64
+2014       193 non-null float64
+2015       193 non-null float64
+2016       193 non-null float64
+dtypes: float64(57), object(1)
+memory usage: 88.0+ KB
+
+    \end{Verbatim}
+
+    The population growth DataFrame has few missing values. I will try to
+extrapolate some of these values, but ultimately getting rid of a couple
+of countries that still have missing values should not be very
+detrimental to my analysis.
+
+    \hypertarget{data-cleaning}{%
+\subsubsection{Data Cleaning}\label{data-cleaning}}
+
+\hypertarget{co2-dataframe}{%
+\paragraph{CO2 DataFrame}\label{co2-dataframe}}
+
+In order to deal with the missing data in the CO2 DataFrame, I will use
+several techniques. To start, I will use linear interpolation to fill
+the missing values which are in between two existing values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Set \PYZsq{}country\PYZsq{} column as index to allow for interpolation}
+         \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Use linear interpolation to fill missing values between two available values}
+         \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print number of remaining missing values}
+         \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 23722
+\end{Verbatim}
+            
+    While helpful, we still have 23,722 missing values after aplying
+interpolation . Next up, I will simply drop all years except for the
+last 100. While this number is somewhat arbitrary, analyzing the last
+100 years should be enough to explore trends in CO2 emissions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df\PYZus{}co2} \PY{o}{=} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{:}\PY{p}{]}
+         \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}                  1915     1916     1917    1918     1919     1920     1921  \textbackslash{}
+         country                                                                      
+         Afghanistan       NaN      NaN      NaN     NaN      NaN      NaN      NaN   
+         Albania           NaN      NaN      NaN     NaN      NaN      NaN      NaN   
+         Algeria      0.000582  0.00064  0.00126  0.0031  0.00306  0.00363  0.00418   
+         Andorra           NaN      NaN      NaN     NaN      NaN      NaN      NaN   
+         Angola            NaN      NaN      NaN     NaN      NaN      NaN      NaN   
+         
+                         1922     1923    1924  {\ldots}      2005    2006    2007   2008  \textbackslash{}
+         country                                {\ldots}                                    
+         Afghanistan      NaN      NaN     NaN  {\ldots}    0.0529  0.0637  0.0854  0.154   
+         Albania          NaN      NaN     NaN  {\ldots}    1.3800  1.2800  1.3000  1.460   
+         Algeria      0.00413  0.00233  0.0046  {\ldots}    3.2200  2.9900  3.1900  3.160   
+         Andorra          NaN      NaN     NaN  {\ldots}    7.3000  6.7500  6.5200  6.430   
+         Angola           NaN      NaN     NaN  {\ldots}    0.9800  1.1000  1.2000  1.180   
+         
+                       2009   2010   2011  2012   2013   2014  
+         country                                               
+         Afghanistan  0.242  0.294  0.412  0.35  0.316  0.299  
+         Albania      1.480  1.560  1.790  1.68  1.730  1.960  
+         Algeria      3.420  3.300  3.290  3.46  3.510  3.720  
+         Andorra      6.120  6.120  5.870  5.92  5.900  5.830  
+         Angola       1.230  1.240  1.250  1.33  1.250  1.290  
+         
+         [5 rows x 100 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Check for missing data}
+         \PY{n}{missing} \PY{o}{=} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{total} \PY{o}{=} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{df\PYZus{}co2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Missing }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ out of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ data points (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{missing}\PY{p}{,} \PY{n}{total}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{missing}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{total}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Missing 5201 out of 19200 data points (27.0\%)
+
+    \end{Verbatim}
+
+    As seen above, we still have over 25\% of missing values, even after
+dropping the years with a higher prevalence of missing values. I'd like
+to fill the remaining missing values with an average of CO2 emissions
+for each year. However, in order to avoid clumping regions with high
+emissions with regions with low emissions, I'd like to first group
+countries by region and use the region mean to populate missing values
+for other countries in that region. To do this, we'll have to use the
+DataFrame containing each country's region (df\_regions).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Drop columns we won\PYZsq{}t be using for \PYZsq{}regions\PYZsq{} DataFrame}
+         \PY{n}{df\PYZus{}regions}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{members\PYZus{}oecd\PYZus{}g77}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UN member since}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Rename first column to more descriptive \PYZsq{}country\PYZsq{}}
+         \PY{n}{df\PYZus{}regions}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}regions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}        country four\_regions       eight\_regions               six\_regions  \textbackslash{}
+         0  Afghanistan         asia           asia\_west                south\_asia   
+         1      Albania       europe         europe\_east       europe\_central\_asia   
+         2      Algeria       africa        africa\_north  middle\_east\_north\_africa   
+         3      Andorra       europe         europe\_west       europe\_central\_asia   
+         4       Angola       africa  africa\_sub\_saharan        sub\_saharan\_africa   
+         
+                     World bank region World bank income group 2017  
+         0                  South Asia                   Low income  
+         1       Europe \& Central Asia          Upper middle income  
+         2  Middle East \& North Africa          Upper middle income  
+         3       Europe \& Central Asia                  High income  
+         4          Sub-Saharan Africa          Lower middle income  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Create new df with merged data}
+         \PY{n}{df\PYZus{}co2\PYZus{}w\PYZus{}region} \PY{o}{=} \PY{n}{df\PYZus{}regions}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}co2}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}co2\PYZus{}w\PYZus{}region}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}        country four\_regions       eight\_regions               six\_regions  \textbackslash{}
+         0  Afghanistan         asia           asia\_west                south\_asia   
+         1      Albania       europe         europe\_east       europe\_central\_asia   
+         2      Algeria       africa        africa\_north  middle\_east\_north\_africa   
+         3      Andorra       europe         europe\_west       europe\_central\_asia   
+         4       Angola       africa  africa\_sub\_saharan        sub\_saharan\_africa   
+         
+                     World bank region World bank income group 2017      1915     1916  \textbackslash{}
+         0                  South Asia                   Low income       NaN      NaN   
+         1       Europe \& Central Asia          Upper middle income       NaN      NaN   
+         2  Middle East \& North Africa          Upper middle income  0.000582  0.00064   
+         3       Europe \& Central Asia                  High income       NaN      NaN   
+         4          Sub-Saharan Africa          Lower middle income       NaN      NaN   
+         
+               1917    1918  {\ldots}      2005    2006    2007   2008   2009   2010   2011  \textbackslash{}
+         0      NaN     NaN  {\ldots}    0.0529  0.0637  0.0854  0.154  0.242  0.294  0.412   
+         1      NaN     NaN  {\ldots}    1.3800  1.2800  1.3000  1.460  1.480  1.560  1.790   
+         2  0.00126  0.0031  {\ldots}    3.2200  2.9900  3.1900  3.160  3.420  3.300  3.290   
+         3      NaN     NaN  {\ldots}    7.3000  6.7500  6.5200  6.430  6.120  6.120  5.870   
+         4      NaN     NaN  {\ldots}    0.9800  1.1000  1.2000  1.180  1.230  1.240  1.250   
+         
+            2012   2013   2014  
+         0  0.35  0.316  0.299  
+         1  1.68  1.730  1.960  
+         2  3.46  3.510  3.720  
+         3  5.92  5.900  5.830  
+         4  1.33  1.250  1.290  
+         
+         [5 rows x 106 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Show count of non\PYZhy{}missing values per year}
+         \PY{n}{df\PYZus{}co2\PYZus{}w\PYZus{}region}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{World bank region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                             1915  1916  1917  1918  1919  1920  1921  1922  \textbackslash{}
+         World bank region                                                            
+         East Asia \& Pacific            7     7     7     7     7     7     7     7   
+         Europe \& Central Asia         36    36    36    36    36    36    36    36   
+         Latin America \& Caribbean      7     7     8     8     8     8     9     9   
+         Middle East \& North Africa     3     4     4     4     4     4     4     4   
+         North America                  2     2     2     2     2     2     2     2   
+         South Asia                     1     1     1     1     1     1     1     1   
+         Sub-Saharan Africa             3     3     3     3     3     4     4     4   
+         
+                                     1923  1924  {\ldots}   2005  2006  2007  2008  2009  \textbackslash{}
+         World bank region                       {\ldots}                                  
+         East Asia \& Pacific            7     7  {\ldots}     30    30    30    30    30   
+         Europe \& Central Asia         36    36  {\ldots}     49    49    50    50    50   
+         Latin America \& Caribbean      9     9  {\ldots}     33    33    33    33    33   
+         Middle East \& North Africa     4     5  {\ldots}     21    21    21    21    21   
+         North America                  2     2  {\ldots}      2     2     2     2     2   
+         South Asia                     1     1  {\ldots}      8     8     8     8     8   
+         Sub-Saharan Africa             4     4  {\ldots}     47    47    47    47    47   
+         
+                                     2010  2011  2012  2013  2014  
+         World bank region                                         
+         East Asia \& Pacific           30    30    30    30    30  
+         Europe \& Central Asia         50    50    50    50    50  
+         Latin America \& Caribbean     33    33    33    33    33  
+         Middle East \& North Africa    21    21    21    21    21  
+         North America                  2     2     2     2     2  
+         South Asia                     8     8     8     8     8  
+         Sub-Saharan Africa            47    47    48    48    48  
+         
+         [7 rows x 100 columns]
+\end{Verbatim}
+            
+    When grouping by `World Bank region' above, I can confirm my suspicion
+that developing countries will have more missing data than developed
+nations. As we can see, only 3/48 countries in Sub-Saharan Africa have
+data for the first few years, while 36/50 and 2/2 have data in Europe \&
+Central Asia and North America, respectively. I will proceed with
+imputation based on mean by World Bank region, but we should keep in
+mind that earlier data will be less reliable than data for the past few
+years.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Show mean CO2 emissions by region}
+         \PY{n}{df\PYZus{}co2\PYZus{}w\PYZus{}region}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{World bank region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}                                  1915       1916       1917       1918  \textbackslash{}
+         World bank region                                                        
+         East Asia \& Pacific          1.422719   1.378370   1.387049   1.432520   
+         Europe \& Central Asia        1.989370   1.976942   1.706283   1.520525   
+         Latin America \& Caribbean    0.591614   0.637214   0.632725   0.748413   
+         Middle East \& North Africa   0.045067   0.050202   0.074140   0.098050   
+         North America               10.405000  11.965000  13.050000  13.550000   
+         South Asia                   0.140000   0.140000   0.146000   0.163000   
+         Sub-Saharan Africa           1.122000   1.299200   1.375700   1.275200   
+         
+                                          1919       1920       1921       1922  \textbackslash{}
+         World bank region                                                        
+         East Asia \& Pacific          1.340066   1.339243   1.219523   1.246697   
+         Europe \& Central Asia        1.386217   1.630919   1.494358   1.708871   
+         Latin America \& Caribbean    0.809500   1.169275   1.192974   1.167844   
+         Middle East \& North Africa   0.111365   0.128807   0.166670   0.202457   
+         North America               11.305000  12.770000  10.890000  10.150000   
+         South Asia                   0.177000   0.143000   0.153000   0.149000   
+         Sub-Saharan Africa           1.300633   1.064617   1.036808   0.877800   
+         
+                                          1923       1924    {\ldots}           2005  \textbackslash{}
+         World bank region                                   {\ldots}                  
+         East Asia \& Pacific          1.284447   1.345371    {\ldots}       3.988000   
+         Europe \& Central Asia        1.794462   2.022525    {\ldots}       7.008082   
+         Latin America \& Caribbean    1.154022   1.304967    {\ldots}       3.272970   
+         Middle East \& North Africa   0.246458   0.226140    {\ldots}      10.612381   
+         North America               13.300000  11.435000    {\ldots}      18.450000   
+         South Asia                   0.153000   0.163000    {\ldots}       0.689863   
+         Sub-Saharan Africa           1.045500   1.080725    {\ldots}       0.933315   
+         
+                                          2006       2007       2008       2009  \textbackslash{}
+         World bank region                                                        
+         East Asia \& Pacific          3.934233   4.247133   4.425667   4.413100   
+         Europe \& Central Asia        7.116735   6.987240   6.945940   6.359560   
+         Latin America \& Caribbean    3.421030   3.517848   3.556333   3.578333   
+         Middle East \& North Africa  10.780238  10.420714  10.372762  10.024762   
+         North America               17.900000  18.050000  17.650000  16.550000   
+         South Asia                   0.753188   0.772887   0.819000   0.854000   
+         Sub-Saharan Africa           0.947328   0.931045   0.945347   0.891613   
+         
+                                          2010       2011       2012       2013  \textbackslash{}
+         World bank region                                                        
+         East Asia \& Pacific          4.513300   4.646500   4.644767   4.715033   
+         Europe \& Central Asia        6.669260   6.519420   6.325340   6.244720   
+         Latin America \& Caribbean    3.665303   3.647152   3.673727   3.711455   
+         Middle East \& North Africa   9.880952   9.580714  10.039429   9.522286   
+         North America               16.550000  16.300000  15.550000  15.550000   
+         South Asia                   0.889750   0.975125   1.033625   1.024250   
+         Sub-Saharan Africa           0.892687   0.889591   0.877654   0.872792   
+         
+                                          2014  
+         World bank region                      
+         East Asia \& Pacific          4.613100  
+         Europe \& Central Asia        5.987400  
+         Latin America \& Caribbean    3.631212  
+         Middle East \& North Africa   9.978714  
+         North America               15.800000  
+         South Asia                   1.140000  
+         Sub-Saharan Africa           0.929798  
+         
+         [7 rows x 100 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Copy df to be cleaned}
+         \PY{n}{df\PYZus{}co2\PYZus{}clean} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}w\PYZus{}region}
+         
+         \PY{c+c1}{\PYZsh{} Replace missing values with in\PYZhy{}group mean by World Bank region}
+         \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{World bank region}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Show cleaned DF}
+         \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}        country four\_regions       eight\_regions               six\_regions  \textbackslash{}
+         0  Afghanistan         asia           asia\_west                south\_asia   
+         1      Albania       europe         europe\_east       europe\_central\_asia   
+         2      Algeria       africa        africa\_north  middle\_east\_north\_africa   
+         3      Andorra       europe         europe\_west       europe\_central\_asia   
+         4       Angola       africa  africa\_sub\_saharan        sub\_saharan\_africa   
+         
+                     World bank region World bank income group 2017      1915  \textbackslash{}
+         0                  South Asia                   Low income  0.140000   
+         1       Europe \& Central Asia          Upper middle income  1.989370   
+         2  Middle East \& North Africa          Upper middle income  0.000582   
+         3       Europe \& Central Asia                  High income  1.989370   
+         4          Sub-Saharan Africa          Lower middle income  1.122000   
+         
+                1916      1917      1918  {\ldots}      2005    2006    2007   2008   2009  \textbackslash{}
+         0  0.140000  0.146000  0.163000  {\ldots}    0.0529  0.0637  0.0854  0.154  0.242   
+         1  1.976942  1.706283  1.520525  {\ldots}    1.3800  1.2800  1.3000  1.460  1.480   
+         2  0.000640  0.001260  0.003100  {\ldots}    3.2200  2.9900  3.1900  3.160  3.420   
+         3  1.976942  1.706283  1.520525  {\ldots}    7.3000  6.7500  6.5200  6.430  6.120   
+         4  1.299200  1.375700  1.275200  {\ldots}    0.9800  1.1000  1.2000  1.180  1.230   
+         
+             2010   2011  2012   2013   2014  
+         0  0.294  0.412  0.35  0.316  0.299  
+         1  1.560  1.790  1.68  1.730  1.960  
+         2  3.300  3.290  3.46  3.510  3.720  
+         3  6.120  5.870  5.92  5.900  5.830  
+         4  1.240  1.250  1.33  1.250  1.290  
+         
+         [5 rows x 106 columns]
+\end{Verbatim}
+            
+    As we can see above, now I have a clean DataFrame with no missing
+values.
+
+    \hypertarget{gdp-dataframe}{%
+\paragraph{GDP DataFrame}\label{gdp-dataframe}}
+
+    As we saw above, the GDP DataFrame has no missing values. The only data
+cleaning necessary will be to trim the DataFrame to include only the
+years we are interested in for this analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Trim dataframe to include years 1915\PYZhy{}2014}
+         \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}gdp} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{104}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}              1915  1916  1917  1918  1919  1920  1921  1922  1923  1924  \textbackslash{}
+         country                                                                   
+         Afghanistan   837   841   845   849   853   857   863   868   874   880   
+         Albania      1420  1440  1460  1480  1500  1520  1540  1560  1580  1600   
+         Algeria      2170  2210  2240  2280  2320  2360  2420  2480  2540  2600   
+         Andorra      3850  3920  3980  4050  4120  4190  4260  4330  4410  4480   
+         Angola       1080  1110  1140  1170  1210  1250  1290  1330  1370  1410   
+         
+                      {\ldots}     2005   2006   2007   2008   2009   2010   2011   2012  \textbackslash{}
+         country      {\ldots}                                                             
+         Afghanistan  {\ldots}     1140   1160   1290   1300   1530   1610   1660   1840   
+         Albania      {\ldots}     7460   7920   8450   9150   9530   9930  10200  10400   
+         Algeria      {\ldots}    12300  12300  12600  12700  12600  12900  13000  13200   
+         Andorra      {\ldots}    39800  42700  43400  41400  41700  39000  42000  41900   
+         Angola       {\ldots}     3950   4600   5440   5980   5910   5900   5910   6000   
+         
+                       2013   2014  
+         country                    
+         Afghanistan   1810   1780  
+         Albania      10500  10700  
+         Algeria      13300  13500  
+         Andorra      43700  44900  
+         Angola        6190   6260  
+         
+         [5 rows x 100 columns]
+\end{Verbatim}
+            
+    \hypertarget{population-growth-dataframe}{%
+\paragraph{Population Growth
+DataFrame}\label{population-growth-dataframe}}
+
+    As seen above, the population growth DataFrame has a few missing values
+(\textless{}1\%). I will start by simply removing the last two years,
+since we don't have CO2 data for those years. After that, I will try to
+interpolate the missing values; if this is not possible, I will simply
+drop those countries that still have missing values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Trim last 2 years of data}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}        country  1960  1961  1962  1963  1964  1965  1966  1967  1968  {\ldots}    \textbackslash{}
+         0  Afghanistan  1.82  1.88  1.94  1.99  2.05  2.11  2.13  2.15  2.21  {\ldots}     
+         1      Albania  3.02  3.12  3.06  2.95  2.88  2.75  2.63  2.63  2.84  {\ldots}     
+         2      Algeria  2.51  2.49  2.47  2.49  2.56  2.66  2.76  2.84  2.88  {\ldots}     
+         3      Andorra  7.05  6.94  6.69  6.56  6.24  6.00  5.75  5.50  5.31  {\ldots}     
+         4       Angola  1.90  1.93  1.95  1.93  1.87  1.79  1.70  1.65  1.68  {\ldots}     
+         
+             2005   2006   2007   2008   2009    2010   2011   2012   2013   2014  
+         0  3.870  3.230  2.760  2.510  2.570  2.8100  3.100  3.270  3.320  3.180  
+         1 -0.512 -0.631 -0.756 -0.767 -0.674 -0.4960 -0.269 -0.165 -0.183 -0.207  
+         2  1.380  1.460  1.530  1.620  1.720  1.8200  1.920  2.010  2.040  2.000  
+         3  3.380  2.660  2.070  1.410  0.714 -0.0154 -0.830 -1.590 -2.010 -1.960  
+         4  3.580  3.570  3.560  3.560  3.570  3.5700  3.570  3.560  3.530  3.490  
+         
+         [5 rows x 56 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Set \PYZsq{}country\PYZsq{} column as index to allow for interpolation}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Use linear interpolation to fill missing values between two available values}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print number of remaining missing values}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 62
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Identify countries to be dropped}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{p}{[}\PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}             1960  1961  1962  1963  1964  1965  1966  1967  1968  1969  {\ldots}    \textbackslash{}
+         country                                                                 {\ldots}     
+         Palestine    NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+         Serbia       NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}     
+         Seychelles   NaN  2.81  2.65  2.54  2.51  2.51  2.49  2.46  2.42  2.38  {\ldots}     
+         
+                      2005   2006   2007   2008   2009   2010   2011   2012   2013  \textbackslash{}
+         country                                                                     
+         Palestine   2.560  2.560  2.560  2.880  2.890  2.900  3.000  3.010  2.980   
+         Serbia     -0.300 -0.393 -0.405 -0.426 -0.401 -0.402 -0.789 -0.485 -0.487   
+         Seychelles  0.463  2.080  0.511  2.240  0.393  2.790 -2.630  0.981  1.850   
+         
+                      2014  
+         country            
+         Palestine   2.960  
+         Serbia     -0.469  
+         Seychelles  1.560  
+         
+         [3 rows x 55 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Drop all rows with missing values}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} (191, 55)
+\end{Verbatim}
+            
+    I now have a DataFrame with no missing values and managed to keep 191
+countries to be used for the analysis.
+
+    \hypertarget{exploratory-data-analysis}{%
+\subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}}
+
+Now that I've trimmed and cleaned my data, I'm ready to move on to
+exploration.
+
+\hypertarget{what-trends-can-we-see-in-co2-emissions-over-the-past-century}{%
+\subsubsection{What trends can we see in CO2 emissions over the past
+century?}\label{what-trends-can-we-see-in-co2-emissions-over-the-past-century}}
+
+To help answer this question, I will start with a simple visualization
+of mean CO2 emissions over time, followed by a viasualization of this
+trend by region.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Plot mean CO2 emissions against time}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize figure}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Format graph}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CO2 emissions in the last 100 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CO2 emissions (tonnes per person)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Change x ticks to every 5 years}
+         \PY{n}{start}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xlim}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}ticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Plot mean CO2 emissions against time by region}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize figure}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Format graph}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CO2 emissions in the last 100 years by region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CO2 emissions (tonnes per person)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{World bank region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{World bank region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Show legend}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Change x ticks to every 5 years}
+         \PY{n}{start}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xlim}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}ticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see some interesting trends in the above figures. To start, we
+can see a clear increase in CO2 emissions per capita from around 1.2
+tonnes to around 4.5 tonnes in the past 100 years. But the increase
+hasn't always been smooth. There are two peaks in CO2 emissions, one
+around the 1940s and one in the 1970s. As for the one in the 1940s, I
+believe it is likely to be present due to spurious outliers, perhaps
+caused by errors in data gathering. I think this is the case because of
+the immense year-by-year variability which I would not expect. The peak
+in the 1970s is more likely to be real. The silver lining from this
+first figure is that, even though CO2 emissions are higher than they
+were 100 years ago, they are currently lower than they were 40 years
+ago.
+
+    The second figure gives us a more granular view of the trend. We can see
+that CO2 emissions have increased in every region except for Sub-Saharan
+Africa in the last 100 years. We can also see that CO2 emissions have
+been predominantly produced by North America (looking at you, USA).
+Importantly, the second figure seems to confirm that the spike in the
+1940s is being produced by a handful of countries in East Asia \&
+Pacific and Middle East \& North Africa.
+
+    \hypertarget{what-is-the-relationship-between-co2-emissions-and-gdp}{%
+\subsubsection{What is the relationship between CO2 emissions and
+GDP?}\label{what-is-the-relationship-between-co2-emissions-and-gdp}}
+
+    To explore this question we will first view the trend of per capita GDP
+in time, to see if it roughly follows the same upward path as CO2
+emissions. I will also plot both GDP and CO2 emissions in the same graph
+so we can visualize both trends side by side.
+
+Following this, I will plot a scattergraph to visualize the relationship
+better.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Plot mean GDP against time}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize figure}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Format graph}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean GDP per capita in the last 100 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean GDP per capita (international 2011 USD)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{;}
+         
+         \PY{c+c1}{\PYZsh{} Change x ticks to every 5 years}
+         \PY{n}{start}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xlim}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}ticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot mean GDP against time}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize figure}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Format graph}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean GDP and CO2 emissions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean GDP per capita (international 2011 USD)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make the y\PYZhy{}axis label, ticks and tick labels match the line color.}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO2 emissions per capita (tonnes per person)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Change x ticks to every 5 years}
+         \PY{n}{start}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{get\PYZus{}xlim}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}ticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see above, both CO2 emissions and GDP have increased over the
+past 100 years. They seem to be highly correlated (except for that
+outlying period in the 1940s), as they both seem to have a peak around
+the 1970s. It is interesting to note that, after the financial crisis of
+2007-2008, there seems to be some hope that an increase in GDP does not
+necessarily have to come with an increase in CO2 emissions, as emissions
+seem to be stable or decreasing while GDP rises.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Assign first column as index}
+         \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Set style}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Drop countries that are not in both dataframes}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liechtenstein}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monaco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Marino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean GDP per capita (2011 USD)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CO2 per capita (tonnes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO2 Emissions and GDP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Drop countries that are not in both dataframes and select only last 3 years}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liechtenstein}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monaco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Marino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean GDP per capita for 2012\PYZhy{}2014 (2011 USD)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CO2 per capita for 2012\PYZhy{}2014 (tonnes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO2 Emissions and GDP in the last 3 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As the above scatterplots show, there is in fact a positive correlation
+between GDP per capita and CO2 emissions per capita. Even when looking
+only at the last 3 years (in the second scatterplot), there still seems
+to be a positive correlation.
+
+    \hypertarget{what-is-the-relationship-between-co2-emissions-and-population-growth}{%
+\subsubsection{What is the relationship between CO2 emissions and
+population
+growth?}\label{what-is-the-relationship-between-co2-emissions-and-population-growth}}
+
+    I will once again draw a line graph to see the evolution of population
+growth over the past 55 years. I will then combine all data into a
+single DataFrame to visualize relationships between all three variables
+(CO2, GDP and population growth).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot pop growth against time}
+         \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize figure}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Format graph}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population growth since 1960}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Annual population growth rate (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Interestingly, we can see that population growth, though still positive,
+has decreased greatly over the past 55 years.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Make DataFrames long}
+         \PY{n}{df1} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{id\PYZus{}vars}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}growth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df2} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{id\PYZus{}vars}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Merge DataFrames}
+         \PY{n}{df\PYZus{}merged} \PY{o}{=} \PY{n}{df1}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df2}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}merged}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}                   pop\_growth       co2
+         country     year                      
+         Afghanistan 1960        1.82  0.046100
+         Albania     1960        3.02  1.240000
+         Algeria     1960        2.51  0.554000
+         Andorra     1960        7.05  5.639227
+         Angola      1960        1.90  0.097500
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Make GDP DataFrame long}
+         \PY{n}{df3} \PY{o}{=} \PY{n}{df\PYZus{}gdp}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{id\PYZus{}vars}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Merge DataFrames}
+         \PY{n}{df\PYZus{}merged} \PY{o}{=} \PY{n}{df\PYZus{}merged}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df3}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}merged}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                   pop\_growth       co2    gdp
+         country     year                             
+         Afghanistan 1960        1.82  0.046100   1210
+         Albania     1960        3.02  1.240000   2790
+         Algeria     1960        2.51  0.554000   6520
+         Andorra     1960        7.05  5.639227  15200
+         Angola      1960        1.90  0.097500   3860
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Show all variables by country}
+         \PY{n}{df\PYZus{}merged}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}                      pop\_growth        co2           gdp
+         country                                                 
+         Afghanistan            2.383109   0.147507   1201.563636
+         Albania                1.119145   1.643909   5169.454545
+         Algeria                2.331636   2.449873   9576.909091
+         Andorra                3.357278   7.493673  31241.818182
+         Angola                 2.875273   0.600264   4594.545455
+         Antigua and Barbuda    1.075582   4.824582  12586.181818
+         Argentina              1.364909   3.633455  13431.636364
+         Armenia                0.863087   1.581618   3978.909091
+         Australia              1.545327  14.540909  27892.727273
+         Austria                0.358811   7.158364  29085.454545
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Plot pop growth and CO2 emissions against time}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1960}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{df\PYZus{}pop\PYZus{}growth}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{n}{df\PYZus{}co2\PYZus{}clean}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{55}\PY{p}{:}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Initialize figure}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Format graph}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population growth and CO2 emissions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Annual population growth (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make the y\PYZhy{}axis label, ticks and tick labels match the line color.}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO2 emissions per capita (tonnes per person)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As seen above, there seems to be a negative correlation between
+population growth and CO2 emissions (which could be related to the fact
+that high-income countries tend to have lower population growth rates).
+While this has been true in average over the past 55 years, I want to
+create a 3D scatter-plot that will allow us to investigate relationships
+at the country level (i.e.~does a country with higher GDP and population
+growth rate tend to have higher CO2 emissions?)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{}fig, ax = plt.subplots(figsize=(15,10))}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ticks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{relplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}growth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}merged}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{g}\PY{o}{.}\PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO2 emissions, annual population growth and GDP per capita}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see above, when looking at each individual country (each point
+represents a country), it is still the case that higher population
+growth seems to be correlated with higher CO2 emissions and higher GDP
+per capita.
+
+    \hypertarget{conclusions}{%
+\subsection{Conclusions}\label{conclusions}}
+
+    To recap, these were the questions that I set out to investigate at the
+onset: 1. What trends can we see in CO2 emissions over the past century?
+2. What is the relationship between CO2 emissions and GDP? 3. What is
+the relationship between CO2 emissions and population growth?
+
+    After investigating the datasets, I have come to the following
+conclusions regarding these questions: 1. CO2 emissions have increased
+greatly over the past 100 years. Perhaps somewhat reassuring, this trend
+seems to have slowed down or even reversed since the financial crisis of
+2007-2008. It would be interesting to see similar trends for other
+greenhouse gases (e.g.~methane). It is important to note that this
+anaylsis is done on CO2 per capita, meaning that total CO2 emissions
+might still be increasing as population continues to grow globally. 2.
+GDP and CO2 emissions seem to be positively correlated. This comes as no
+surprise, since higher GDP usually means higher production of goods and
+consumption of resources. Interestingly, since 2007-2008, there seems to
+be an increase in GDP that has not been met with an increase in CO2
+emissions. Again, it would be interesting to evaluate other greenhouse
+gases as well. Also on this point, it will be interesting to continue to
+see what happens with CO2 emissions in Sub-Saharan Africa and South Asia
+as they increase their GDP. 3. When analyzing the timelines of
+population growth and CO2 emissions, it seems that these two variables
+are inversely correlated. What we have seen in the past 55 years is an
+increase in average CO2 emissions per capita as average population
+growth has been decreasing. It would be interesting to see if population
+growth by itself has any relation with CO2 emissions, or if low
+population growth simply reflects higher average GDP per capita.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
